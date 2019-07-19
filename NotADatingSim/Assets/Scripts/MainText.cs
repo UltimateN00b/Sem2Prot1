@@ -48,14 +48,14 @@ public class MainText : MonoBehaviour
     public string GetCurrCharacter()
     {
         string myText = currCharacter;
-        myText = myText.Replace("MC", MyName.GetName());
+        myText = myText.Replace("Doggo", StoreInfoPuppyLove.GetName());
         return myText;
     }
 
     public string GetMainText()
     {
         string myText = this.GetComponent<Text>().text;
-        myText = myText.Replace("MC", MyName.GetName());
+        myText = myText.Replace("Doggo", StoreInfoPuppyLove.GetName());
         return myText;
     }
 

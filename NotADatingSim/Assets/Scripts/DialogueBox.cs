@@ -34,9 +34,15 @@ public class DialogueBox : MonoBehaviour
 
     private bool _textFullyDisplayed;
 
+    private GameObject _doggoImage;
+
     // Use this for initialization
     void Start()
     {
+
+        _doggoImage = GameObject.Find("DoggoImage");
+        _doggoImage.SetActive(false);
+
         _clickCounter = 2;
         _typeTimer = 0;
         _charNum = 0;
@@ -218,7 +224,7 @@ public class DialogueBox : MonoBehaviour
 
             string currSpeakingCharacter = currNode.GetCurrCharacter();
 
-            if (currSpeakingCharacter.Equals("Doggo") || currSpeakingCharacter.Equals("?")|| GameObject.Find(currNode.GetCurrCharacter()) != null || currSpeakingCharacter == "Narrator")
+            if (currSpeakingCharacter.Equals(StoreInfoPuppyLove.GetName()) || currSpeakingCharacter.Equals("?")|| GameObject.Find(currNode.GetCurrCharacter()) != null || currSpeakingCharacter == "Narrator")
             {
                 Show();
                 currNode.InvokeOnShownEvent();
@@ -256,7 +262,25 @@ public class DialogueBox : MonoBehaviour
             {
                 if (currChild.name.Equals("CurrentCharacterText"))
                 {
-                    currChild.GetComponent<Text>().text = currNode.GetCurrCharacter();
+                    if (currNode.GetCurrCharacter() == "Doggo")
+                    {
+                        currChild.GetComponent<Text>().text = StoreInfoPuppyLove.GetName();
+                    }
+                    else
+                    {
+                        currChild.GetComponent<Text>().text = currNode.GetCurrCharacter();
+
+                        if (currNode.GetCurrCharacter() != StoreInfoPuppyLove.GetName())
+                        {
+                            _doggoImage.SetActive(false);
+                        }
+                    }
+                }
+
+                if (currNode.GetCurrCharacter() == StoreInfoPuppyLove.GetName())
+                {
+                    _doggoImage.SetActive(true);
+                    print("DOGGO WAS SET ACTIVE");
                 }
 
 
@@ -346,6 +370,7 @@ public class DialogueBox : MonoBehaviour
         }
 
         _clickCounter = 0;
+        _doggoImage.SetActive(false);
     }
 
     private void ModifyChoice(int choiceNum, GameObject choiceGO, MainText currentNode)
