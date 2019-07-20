@@ -419,13 +419,12 @@ public class DialogueBox : MonoBehaviour
             {
                 //mainTextButton.GetComponent<Text>().color = new Color32 (133, 214, 241, 255);
                 //mainTextButton.GetComponent<Text>().fontStyle = FontStyle.Normal;
-            }else if (Utilities.SearchChild("CurrentCharacterText", this.gameObject).GetComponent<Text>().text == "Doggo")
+            }else if (Utilities.SearchChild("CurrentCharacterText", this.gameObject).GetComponent<Text>().text == StoreInfoPuppyLove.GetName())
             {
                 mainTextButton.GetComponent<Text>().fontStyle = FontStyle.Italic;
             }
             else
             {
-                mainTextButton.GetComponent<Text>().color = Color.white;
                 mainTextButton.GetComponent<Text>().fontStyle = FontStyle.Normal;
             }
 
