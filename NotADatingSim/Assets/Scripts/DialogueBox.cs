@@ -110,6 +110,11 @@ public class DialogueBox : MonoBehaviour
                     if (currNode.HasChoice() == false)
                     {
                         currNode.InvokeOnClickedEvent();
+
+                        if (currNode.goToConsecutiveNodeOnClick)
+                        {
+                            ChangeNode(int.Parse(currNode.gameObject.transform.GetChild(0).GetComponent<Text>().text)+1);
+                        }
                     }
                 }
             }
@@ -168,6 +173,12 @@ public class DialogueBox : MonoBehaviour
 
         string myText = _nodeDictionary[_currNode].GetMainText();
         _canControlTextDisplay = false;
+
+
+        if (myText.Contains("Doggo"))
+        {
+            myText = myText.Replace("Doggo", StoreInfoPuppyLove.GetName());
+        }
 
         if (UseItemManager.GetItemInUse() != null)
         {
@@ -230,14 +241,14 @@ public class DialogueBox : MonoBehaviour
                 currNode.InvokeOnShownEvent();
             } else
             {
-                Hide();
+                //Hide();
                 print("!!!SPEAKING CHARACTER IS NOT IN THE SCENE");
             }
 
             if (currNode.HasChoice())
             {
                 int numChoices = currNode.GetChoiceList().Count;
-
+                
                 for (int i = 0; i < numChoices; i++)
                 {
                     GameObject currChoice = Utilities.SearchChild("ChoiceButton" + i, this.gameObject);
@@ -413,9 +424,13 @@ public class DialogueBox : MonoBehaviour
 
             if (displayText.Contains("("))
             {
-                mainTextButton.GetComponent<Text>().color = new Color32 (133, 214, 241, 255);
-                mainTextButton.GetComponent<Text>().fontStyle = FontStyle.Normal;
-            } else
+                //mainTextButton.GetComponent<Text>().color = new Color32 (133, 214, 241, 255);
+                //mainTextButton.GetComponent<Text>().fontStyle = FontStyle.Normal;
+            }else if (Utilities.SearchChild("CurrentCharacterText", this.gameObject).GetComponent<Text>().text == "Doggo")
+            {
+                mainTextButton.GetComponent<Text>().fontStyle = FontStyle.Italic;
+            }
+            else
             {
                 mainTextButton.GetComponent<Text>().color = Color.white;
                 mainTextButton.GetComponent<Text>().fontStyle = FontStyle.Normal;

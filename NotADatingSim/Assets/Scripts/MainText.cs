@@ -13,6 +13,8 @@ public class MainText : MonoBehaviour
 
     private List<Choice> _choiceList = new List<Choice>();
 
+    public bool goToConsecutiveNodeOnClick = false;
+
     private void Start()
     {
         Hide();
@@ -104,5 +106,10 @@ public class MainText : MonoBehaviour
     public void ChangeOnClickedEvent(UnityEvent newOnClicked)
     {
         m_OnClicked = newOnClicked;
+    }
+
+    public void SetGoToConsecutiveNodeOnClick(bool go)
+    {
+        goToConsecutiveNodeOnClick = go;
     }
 }
