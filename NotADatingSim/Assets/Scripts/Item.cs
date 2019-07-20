@@ -9,13 +9,13 @@ public class Item : MonoBehaviour
 
     public bool canBark;
     public bool canPeeOn;
-    public bool canSpill;
-    public bool canBreak;
+    public bool canBite;
+    public bool canPush;
 
     public UnityEvent m_OnBark;
     public UnityEvent m_OnPee;
-    public UnityEvent m_OnBreak;
-    public UnityEvent m_OnSpill;
+    public UnityEvent m_OnBite;
+    public UnityEvent m_OnPush;
 
     public bool _canHueShift = true;
 
@@ -97,10 +97,10 @@ public class Item : MonoBehaviour
     {
         GameObject commandWheel = GameObject.Find("CommandWheel");
 
-        MyButtonCommand bark = Utilities.SearchChild("Bark", commandWheel).GetComponent<MyButtonCommand>();
+        MyButtonCommand bark = Utilities.SearchChild("Bark At", commandWheel).GetComponent<MyButtonCommand>();
         MyButtonCommand peeOn = Utilities.SearchChild("Pee On", commandWheel).GetComponent<MyButtonCommand>();
-        MyButtonCommand breaking = Utilities.SearchChild("Break", commandWheel).GetComponent<MyButtonCommand>();
-        MyButtonCommand spill = Utilities.SearchChild("Spill", commandWheel).GetComponent<MyButtonCommand>();
+        MyButtonCommand push = Utilities.SearchChild("Push", commandWheel).GetComponent<MyButtonCommand>();
+        MyButtonCommand bite = Utilities.SearchChild("Bite", commandWheel).GetComponent<MyButtonCommand>();
 
 
         if (canBark)
@@ -122,30 +122,30 @@ public class Item : MonoBehaviour
         }
 
 
-        if (canBreak)
+        if (canPush)
         {
-            breaking.SetClickedEvent(m_OnBreak);
+            push.SetClickedEvent(m_OnPush);
         }
         else
         {
-            breaking.SetClickedEvent(new UnityEvent());
+            push.SetClickedEvent(new UnityEvent());
         }
 
 
-        if (canSpill)
+        if (canBite)
         {
-            spill.SetClickedEvent(m_OnSpill);
+            bite.SetClickedEvent(m_OnBite);
         }
         else
         {
-            spill.SetClickedEvent(new UnityEvent());
+            bite.SetClickedEvent(new UnityEvent());
         }
 
     }
 
     public void ChangeApplicableButton(string button)
     {
-        if (button.Equals("Bark"))
+        if (button.Equals("Bark At"))
         {
             canBark = !canBark;
         }
@@ -153,13 +153,13 @@ public class Item : MonoBehaviour
         {
             canPeeOn = !canPeeOn;
         }
-        else if (button.Equals("Break"))
+        else if (button.Equals("Push"))
         {
-            canBreak = !canBreak;
+            canPush = !canPush;
         }
-        else if (button.Equals("Spill"))
+        else if (button.Equals("Bite"))
         {
-            canSpill = !canSpill;
+            canBite = !canBite;
         }
 
         ResetApplicableButtons();
@@ -168,7 +168,7 @@ public class Item : MonoBehaviour
     public void ChangeApplicableButtonTrue(string button)
     {
 
-        if (button.Equals("Bark"))
+        if (button.Equals("Bark At"))
         {
             canBark = true;
         }
@@ -176,13 +176,13 @@ public class Item : MonoBehaviour
         {
             canPeeOn = true;
         }
-        else if (button.Equals("Break"))
+        else if (button.Equals("Push"))
         {
-            canBreak = true;
+            canPush = true;
         }
-        else if (button.Equals("Spill"))
+        else if (button.Equals("Bite"))
         {
-            canSpill = true;
+            canBite = true;
         }
 
         ResetApplicableButtons();
@@ -194,11 +194,11 @@ public class Item : MonoBehaviour
 
         _applicableButtons.Add(canBark);
         _applicableButtons.Add(canPeeOn);
-        _applicableButtons.Add(canBreak);
-        _applicableButtons.Add(canSpill);
+        _applicableButtons.Add(canBite);
+        _applicableButtons.Add(canPush);
     }
 
-    public void UpdateItem(int num)
+    public void UpdateItem(string s)
     {
         List<GameObject> allObjects = new List<GameObject>();
         allObjects.Add(this.gameObject);
@@ -208,7 +208,7 @@ public class Item : MonoBehaviour
             allObjects.Add(this.gameObject.transform.GetChild(i).gameObject);
         }
 
-        GameObject update = Utilities.SearchChild(num + "_Update", this.gameObject);
+        GameObject update = Utilities.SearchChild(s, this.gameObject);
         update.SetActive(true);
         update.name = this.name;
         update.transform.parent = this.transform.parent;

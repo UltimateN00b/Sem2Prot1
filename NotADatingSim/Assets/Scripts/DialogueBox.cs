@@ -235,15 +235,8 @@ public class DialogueBox : MonoBehaviour
 
             string currSpeakingCharacter = currNode.GetCurrCharacter();
 
-            if (currSpeakingCharacter.Equals(StoreInfoPuppyLove.GetName()) || currSpeakingCharacter.Equals("?")|| GameObject.Find(currNode.GetCurrCharacter()) != null || currSpeakingCharacter == "Narrator")
-            {
                 Show();
                 currNode.InvokeOnShownEvent();
-            } else
-            {
-                //Hide();
-                print("!!!SPEAKING CHARACTER IS NOT IN THE SCENE");
-            }
 
             if (currNode.HasChoice())
             {
