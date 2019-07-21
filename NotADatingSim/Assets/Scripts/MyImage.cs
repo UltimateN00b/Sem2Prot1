@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class MyImage : MonoBehaviour
 {
@@ -25,7 +26,15 @@ public class MyImage : MonoBehaviour
 
     public void ControlFade()
     {
-        Color myColour = this.GetComponent<SpriteRenderer>().color;
+        Color myColour = Color.white;
+
+        if (this.GetComponent<Image>() == null)
+        {
+            myColour = this.GetComponent<SpriteRenderer>().color;
+        } else
+        {
+            myColour = this.GetComponent<Image>().color;
+        }
 
         if (_fadeIn)
         {
@@ -50,7 +59,15 @@ public class MyImage : MonoBehaviour
             }
         }
 
-        this.GetComponent<SpriteRenderer>().color = myColour;
+
+        if (this.GetComponent<Image>() == null)
+        {
+            this.GetComponent<SpriteRenderer>().color = myColour;
+        }
+        else
+        {
+            this.GetComponent<Image>().color = myColour;
+        }
     }
 
     public void FadeIn()
