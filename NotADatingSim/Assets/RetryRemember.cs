@@ -16,6 +16,7 @@ public class RetryRemember : MonoBehaviour {
         if (_retry)
         {
             GameObject.Find("DialogueCanvasDecorated").GetComponent<DialogueBox>().ChangeNode(restartNode);
+            Popcorn.SetSpillFalse();
         }
 	}
 	

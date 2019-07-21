@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class MyName : MonoBehaviour {
 
+    public GameObject fadeCanvas;
     private static string _myName;
 
     // Use this for initialization
@@ -20,7 +21,8 @@ public class MyName : MonoBehaviour {
         {
             _myName = this.GetComponent<InputField>().textComponent.text;
             StoreInfoPuppyLove.EnterName(_myName);
-            SceneManager.LoadScene("PuppyLove");
+            fadeCanvas.gameObject.SetActive(true);
+            fadeCanvas.GetComponent<FadeCanvasLegacy>().ChangeScene("PuppyLove");
         }
 	}
 }

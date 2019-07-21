@@ -9927,9 +9927,9 @@ MonoBehaviour:
     Sound by crazymonke9 - https://freesound.org/people/crazymonke9/sounds/418105/\r\nVaseBreak
     by kingsrow -https://freesound.org/people/kingsrow/sounds/194685/\r\nStuffFalling1
     by bigmanjoe -  https://freesound.org/people/bigmanjoe/sounds/348033/\r\nStuffFalling2
-    by bigmanjoe - https://freesound.org/people/bigmanjoe/sounds/348032/\n\nMade by:
-    \nDhannya Mathew (PM)\nKim Coetzee (A)\nLeia French (P)\nMarco Prinsloo (S)\nSanah
-    Hanif (D)"
+    by bigmanjoe - https://freesound.org/people/bigmanjoe/sounds/348032/\nOther sound
+    effects from ZapSplat.com\n\nMade by: \nDhannya Mathew (PM)\nKim Coetzee (A)\nLeia
+    French (P)\nMarco Prinsloo (S)\nSanah Hanif (D)"
 --- !u!222 &1538908098
 CanvasRenderer:
   m_ObjectHideFlags: 0

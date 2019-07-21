@@ -27,4 +27,9 @@ public class Popcorn : MonoBehaviour {
     {
         return _spilled;
     }
+
+    public static void SetSpillFalse()
+    {
+        _spilled = false;
+    }
 }
