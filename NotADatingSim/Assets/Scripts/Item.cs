@@ -17,6 +17,8 @@ public class Item : MonoBehaviour
     public UnityEvent m_OnBite;
     public UnityEvent m_OnPush;
 
+    public UnityEvent m_OnUpdate;
+
     public bool _canHueShift = true;
 
     private List<bool> _applicableButtons;
@@ -30,6 +32,11 @@ public class Item : MonoBehaviour
     {
         ResetApplicableButtons();
         _fadeToBlue = true;
+
+        if (m_OnUpdate == null)
+        {
+            m_OnUpdate = new UnityEvent();
+        }
     }
 
     // Update is called once per frame
@@ -220,6 +227,8 @@ public class Item : MonoBehaviour
                 g.transform.SetParent(update.transform);
             }
         }
+
+        update.GetComponent<Item>().m_OnUpdate.Invoke();
 
         Destroy(this.gameObject);
     }

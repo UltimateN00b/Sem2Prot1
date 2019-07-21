@@ -15,8 +15,14 @@ public class CommandWheel : MonoBehaviour {
 
     private bool _canClick;
 
-	// Use this for initialization
-	void Start () {
+    private GameObject _instructions;
+
+    private void Awake()
+    {
+        _instructions = GameObject.Find("InstructionsCanvas");
+    }
+    // Use this for initialization
+    void Start () {
         _normalScale = this.transform.localScale;
         Hide();
         _canClick = true;
@@ -26,7 +32,7 @@ public class CommandWheel : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        if (GameObject.Find("DialogueCanvasDecorated").GetComponent<DialogueBox>().IsShowing())
+        if (GameObject.Find("DialogueCanvasDecorated").GetComponent<DialogueBox>().IsShowing() || _instructions.activeInHierarchy)
         {
             Hide();
         } else if (Input.GetKeyDown(KeyCode.Mouse0))

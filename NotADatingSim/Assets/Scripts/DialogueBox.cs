@@ -35,10 +35,18 @@ public class DialogueBox : MonoBehaviour
     private bool _textFullyDisplayed;
 
     private GameObject _doggoImage;
+    private GameObject _instructions;
+
+    private void Awake()
+    {
+        _instructions = GameObject.Find("InstructionsCanvas");
+    }
 
     // Use this for initialization
     void Start()
     {
+
+        _instructions = GameObject.Find("InstructionsCanvas");
 
         _doggoImage = GameObject.Find("DoggoImage");
         _doggoImage.SetActive(false);
@@ -84,74 +92,77 @@ public class DialogueBox : MonoBehaviour
 
         if (IsShowing())
         {
-            if (Input.GetKeyDown(KeyCode.Mouse0))
+            if (_instructions.activeInHierarchy == false)
             {
-                if (_clickCounter < 2)
+                if (Input.GetKeyDown(KeyCode.Mouse0))
                 {
-                    _clickCounter += 1;
-
-                    if (_clickCounter == 1)
+                    if (_clickCounter < 2)
                     {
-                        if (!SceneManager.GetActiveScene().name.Equals("Prologue"))
+                        _clickCounter += 1;
+
+                        if (_clickCounter == 1)
                         {
-                            string logText = GameObject.Find("LogContent").GetComponent<Text>().text;
-                            MainText myCurrNode = _nodeDictionary[_currNode];
-                            logText += "\n" + myCurrNode.GetCurrCharacter() + ":";
-                            logText += "\n" + _mainLogText + "\n";
-                            GameObject.Find("LogContent").GetComponent<Text>().text = logText;
+                            if (!SceneManager.GetActiveScene().name.Equals("Prologue"))
+                            {
+                                string logText = GameObject.Find("LogContent").GetComponent<Text>().text;
+                                MainText myCurrNode = _nodeDictionary[_currNode];
+                                logText += "\n" + myCurrNode.GetCurrCharacter() + ":";
+                                logText += "\n" + _mainLogText + "\n";
+                                GameObject.Find("LogContent").GetComponent<Text>().text = logText;
+                            }
                         }
                     }
-                }
 
-                if (_clickCounter == 2)
-                {
-                    MainText currNode = _nodeDictionary[_currNode];
-
-                    if (currNode.HasChoice() == false)
+                    if (_clickCounter == 2)
                     {
-                        currNode.InvokeOnClickedEvent();
+                        MainText currNode = _nodeDictionary[_currNode];
 
-                        if (currNode.goToConsecutiveNodeOnClick)
+                        if (currNode.HasChoice() == false)
                         {
-                            ChangeNode(int.Parse(currNode.gameObject.transform.GetChild(0).GetComponent<Text>().text)+1);
+                            currNode.InvokeOnClickedEvent();
+
+                            if (currNode.goToConsecutiveNodeOnClick)
+                            {
+                                ChangeNode(int.Parse(currNode.gameObject.transform.GetChild(0).GetComponent<Text>().text) + 1);
+                            }
                         }
                     }
                 }
             }
-        }
 
-        MyButton returnButton = null;
+            MyButton returnButton = null;
 
-        if (GameObject.Find("BackArrow") != null)
-        {
-            returnButton = GameObject.Find("BackArrow").GetComponent<MyButton>();
-        }
-
-        if (returnButton != null)
-        {
-            if (IsShowing())
+            if (GameObject.Find("BackArrow") != null)
             {
-                InteractionZone.SetInteractionOn(false);
+                returnButton = GameObject.Find("BackArrow").GetComponent<MyButton>();
+            }
+
+            if (returnButton != null)
+            {
+                if (IsShowing())
+                {
+                    InteractionZone.SetInteractionOn(false);
+                    if (returnButton != null)
+                    {
+                        returnButton.Hide();
+                    }
+                }
+                else
+                {
+                    InteractionZone.SetInteractionOn(true);
+                    if (returnButton != null && GameObject.Find("Classroom") != null && GameObject.Find("Classroom").GetComponent<SpriteRenderer>().color.a < 1)
+                    {
+                        returnButton.Show();
+                    }
+                }
+            }
+
+            if (GameObject.Find("Classroom") != null && GameObject.Find("Classroom").GetComponent<SpriteRenderer>().color.a == 1)
+            {
                 if (returnButton != null)
                 {
                     returnButton.Hide();
                 }
-            }
-            else
-            {
-                InteractionZone.SetInteractionOn(true);
-                if (returnButton != null && GameObject.Find("Classroom") != null && GameObject.Find("Classroom").GetComponent<SpriteRenderer>().color.a < 1)
-                {
-                    returnButton.Show();
-                }
-            }
-        }
-
-        if (GameObject.Find("Classroom") != null && GameObject.Find("Classroom").GetComponent<SpriteRenderer>().color.a == 1)
-        {
-            if (returnButton != null)
-            {
-                returnButton.Hide();
             }
         }
     }
@@ -411,70 +422,74 @@ public class DialogueBox : MonoBehaviour
 
     private void ControlMainTextDisplay(string displayText)
     {
-        if (_displayMainText)
-        {
-            GameObject mainTextButton = Utilities.SearchChild("MainText", this.gameObject);
 
-            if (displayText.Contains("("))
+            if (_displayMainText)
             {
-                //mainTextButton.GetComponent<Text>().color = new Color32 (133, 214, 241, 255);
-                //mainTextButton.GetComponent<Text>().fontStyle = FontStyle.Normal;
-            }else if (Utilities.SearchChild("CurrentCharacterText", this.gameObject).GetComponent<Text>().text == StoreInfoPuppyLove.GetName())
-            {
-                mainTextButton.GetComponent<Text>().fontStyle = FontStyle.Italic;
-            }
-            else
-            {
-                mainTextButton.GetComponent<Text>().fontStyle = FontStyle.Normal;
-            }
+                GameObject mainTextButton = Utilities.SearchChild("MainText", this.gameObject);
 
-            if (Utilities.SearchChild("CurrentCharacterText", this.gameObject).GetComponent<Text>().text == "Narrator")
-            {
-                Utilities.SearchChild("CurrentCharacterText", this.gameObject).GetComponent<Text>().color = Color.clear;
-                mainTextButton.GetComponent<Text>().color = new Color32(69, 164, 71, 255);
-                mainTextButton.GetComponent<Text>().fontStyle = FontStyle.Italic;
-            } else
-            {
-                Utilities.SearchChild("CurrentCharacterText", this.gameObject).GetComponent<Text>().color = Color.white;
-            }
-
-            _typeTimer += Time.deltaTime;
-
-            string mainText = mainTextButton.GetComponent<Text>().text;
-
-            List<char> myChars = displayText.ToCharArray().ToList<char>();
-
-            if (myChars != null)
-            {
-                if (_typeTimer >= typeTime)
+                if (displayText.Contains("("))
                 {
-                    mainText += myChars[_charNum].ToString();
-                    mainTextButton.GetComponent<Text>().text = mainText;
-                    _charNum++;
-                    _typeTimer = 0.0f;
+                    //mainTextButton.GetComponent<Text>().color = new Color32 (133, 214, 241, 255);
+                    //mainTextButton.GetComponent<Text>().fontStyle = FontStyle.Normal;
+                }
+                else if (Utilities.SearchChild("CurrentCharacterText", this.gameObject).GetComponent<Text>().text == StoreInfoPuppyLove.GetName())
+                {
+                    mainTextButton.GetComponent<Text>().fontStyle = FontStyle.Italic;
+                }
+                else
+                {
+                    mainTextButton.GetComponent<Text>().fontStyle = FontStyle.Normal;
                 }
 
-                if (_charNum == myChars.Count)
+                if (Utilities.SearchChild("CurrentCharacterText", this.gameObject).GetComponent<Text>().text == "Narrator")
                 {
-                    _textFullyDisplayed = true;
-                    _displayMainText = false;
-                    _typeTimer = 0.0f;
-                    _charNum = 0;
-                } else
+                    Utilities.SearchChild("CurrentCharacterText", this.gameObject).GetComponent<Text>().color = Color.clear;
+                    mainTextButton.GetComponent<Text>().color = new Color32(69, 164, 71, 255);
+                    mainTextButton.GetComponent<Text>().fontStyle = FontStyle.Italic;
+                }
+                else
                 {
-                    _textFullyDisplayed = false;
+                    Utilities.SearchChild("CurrentCharacterText", this.gameObject).GetComponent<Text>().color = Color.white;
                 }
 
-                if (Input.GetKeyDown(KeyCode.Mouse0))
+                _typeTimer += Time.deltaTime;
+
+                string mainText = mainTextButton.GetComponent<Text>().text;
+
+                List<char> myChars = displayText.ToCharArray().ToList<char>();
+
+                if (myChars != null)
                 {
-                    _textFullyDisplayed = true;
-                    _clickCounter = 0;
-                    mainTextButton.GetComponent<Text>().text = displayText;
-                    _displayMainText = false;
-                    _typeTimer = 0.0f;
-                    _charNum = 0;
+                    if (_typeTimer >= typeTime)
+                    {
+                        mainText += myChars[_charNum].ToString();
+                        mainTextButton.GetComponent<Text>().text = mainText;
+                        _charNum++;
+                        _typeTimer = 0.0f;
+                    }
+
+                    if (_charNum == myChars.Count)
+                    {
+                        _textFullyDisplayed = true;
+                        _displayMainText = false;
+                        _typeTimer = 0.0f;
+                        _charNum = 0;
+                    }
+                    else
+                    {
+                        _textFullyDisplayed = false;
+                    }
+
+                    if (Input.GetKeyDown(KeyCode.Mouse0))
+                    {
+                        _textFullyDisplayed = true;
+                        _clickCounter = 0;
+                        mainTextButton.GetComponent<Text>().text = displayText;
+                        _displayMainText = false;
+                        _typeTimer = 0.0f;
+                        _charNum = 0;
+                    }
                 }
-            }
         }
     }
 
