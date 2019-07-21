@@ -49772,7 +49772,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.00029986654, y: -0.0000056165222}
+  m_AnchoredPosition: {x: -0.00029841028, y: -0.0000056165222}
   m_SizeDelta: {x: -10.827255, y: 13.39713}
   m_Pivot: {x: 2.25, y: 1}
 --- !u!114 &1130653302
@@ -53903,7 +53903,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: No_Shoes
+          m_StringArgument: Normal
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 960269532}
@@ -86297,12 +86297,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myExpressions:
+  - {fileID: 21300000, guid: 00c3c615a9b22ca4db76a109a8cd72be, type: 3}
+  - {fileID: 21300000, guid: 011668c01511c604eab762674722a129, type: 3}
+  - {fileID: 21300000, guid: d27b6c6abc5df714e8e6534c26fffbea, type: 3}
+  - {fileID: 21300000, guid: b6bb2d2235fa0494d92c00d4550feaad, type: 3}
+  - {fileID: 21300000, guid: 2025ea3cbe817cb47ad0e8f9d6909b46, type: 3}
+  - {fileID: 21300000, guid: f304cc3e177b41545b75955025307633, type: 3}
   - {fileID: 21300000, guid: 6baac95cafc1e0f47bcb3ff8bf3875f6, type: 3}
-  - {fileID: 21300000, guid: c55c119abc95a814b8d988d02e564b8d, type: 3}
-  - {fileID: 21300000, guid: b4c2f13f79720e3478b2356318126c8a, type: 3}
-  - {fileID: 21300000, guid: 25d774f7405f2fc45aa064b9118c9c4a, type: 3}
-  - {fileID: 21300000, guid: a23da245b8117ff4880f7ea169358e38, type: 3}
-  - {fileID: 21300000, guid: 62335254525f3c545aa4f2cb9afba970, type: 3}
   leftPos: -3.09
   centerPos: 0.62
   rightPos: 2.44
