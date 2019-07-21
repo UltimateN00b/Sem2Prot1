@@ -8,6 +8,8 @@ public class CommandWheel : MonoBehaviour {
     public Vector3 smallScale;
     public float growthRate;
 
+    private List<GameObject> _clickableItems; //Dhannya here :) I just set this up to start coding for making the wheel only appear when clicking on the specific items
+    //I thought I should only code it tomorrow though :) So I left here
     private Vector3 _normalScale;
     private bool _playEntryAnimation;
 
@@ -18,6 +20,7 @@ public class CommandWheel : MonoBehaviour {
         _normalScale = this.transform.localScale;
         Hide();
         _canClick = true;
+        _clickableItems = new List<GameObject>(GameObject.FindGameObjectsWithTag("CanClick"));
     }
 	
 	// Update is called once per frame

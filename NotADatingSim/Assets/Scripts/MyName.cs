@@ -20,7 +20,7 @@ public class MyName : MonoBehaviour {
         {
             _myName = this.GetComponent<InputField>().textComponent.text;
             StoreInfoPuppyLove.EnterName(_myName);
-            SceneManager.LoadScene("SampleScene");
+            SceneManager.LoadScene("PuppyLove");
         }
 	}
 }

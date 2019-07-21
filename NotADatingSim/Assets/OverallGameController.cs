@@ -8,7 +8,14 @@ public class OverallGameController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
        _instructionsCanvas = GameObject.Find("InstructionsCanvas");
-       _instructionsCanvas.SetActive(false);
+        if (_instructionsCanvas == null)
+        {
+            Debug.Log("Instructions Canvas was not found in scene.");
+        }
+        else
+        {
+            _instructionsCanvas.SetActive(false);
+        }
 	}
 	
 	// Update is called once per frame

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d58f6244f4c1de142bd0496693c2764e
+guid: d73eb73e03f33d64c837dd4dd084ac37
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -8,9 +8,9 @@ TrueTypeFontImporter:
   characterSpacing: 0
   characterPadding: 1
   includeFontData: 1
-  fontName: BrookeShappell10
+  fontName: Puppy_paws
   fontNames:
-  - BrookeShappell10
+  - Puppy_paws
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
